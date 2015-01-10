@@ -1,0 +1,7 @@
+@(lista: List[Evento])
+
+@main("list") {
+    @lista.map{u=>
+        @u.Id - @u.Titulo <br>
+    }
+}
