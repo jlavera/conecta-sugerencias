@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
   anorm ,
   cache ,
   ws ,
-  "org.anormcypher" %% "anormcypher" % "0.5.0"
+  "org.anormcypher" %% "anormcypher" % "0.5.0",
+  "com.github.nscala-time" %% "nscala-time" % "1.6.0"
 )
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  

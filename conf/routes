@@ -8,8 +8,7 @@ GET        /verUsuarios           controllers.Application.verUsuarios
 GET         /verEventos         controllers.Application.verEventos
 GET        /agregarUsuario        controllers.Application.agregarUsuario(_id: Int, _nombre: String)
 GET        /agregarEvento         controllers.Application.agregarEvento(_id: Int, _titulo: String)
-
+GET         /agregarAmigo       controllers.Application.agregarAmigo(_id: Int, _id_amigo: Int)
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file          controllers.Assets.at(path="/public", file)
 
-    
