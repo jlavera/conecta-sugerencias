@@ -13,4 +13,5 @@ class Usuario extends BaseBO[Usuario] {
     Nombre = row[Option[String]]("x.nombre").getOrElse("")
     this
   }
+
 }

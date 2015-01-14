@@ -11,4 +11,13 @@ class UsuarioDAO extends BaseDAO[Usuario] {
     "Nombre"
   )
 
+  def getAmigos(_id: Int) = {
+    new UsuarioDAO()
+      .ExecuteQueryMapped("MATCH (xx:Usuario{id:" + _id + "})-[:AMIGODE]->(x) return x.id, x.nombre;")
+  }
+
+  def getAmigosDeAmigos(_id: Int) = {
+    new UsuarioDAO()
+      .ExecuteQueryMapped("MATCH (xx:Usuario{id:" + _id + "})-[:AMIGODE]->()-[:AMIGODE]->(x) WHERE x.id <> " + _id + " RETURN distinct x.id, x.nombre;")
+  }
 }

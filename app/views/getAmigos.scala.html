@@ -1,0 +1,9 @@
+@import models.bo.Usuario
+
+@(lista: List[Usuario])
+
+@main("list") {
+    @lista.map{u=>
+        @u.Id - @u.Nombre <br>
+    }
+}

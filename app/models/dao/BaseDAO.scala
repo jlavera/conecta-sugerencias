@@ -1,7 +1,7 @@
 package models.dao
 
 import models.bo.BaseBO
-import org.anormcypher.Cypher
+import org.anormcypher.{CypherResultRow, Cypher}
 
 abstract class BaseDAO[T <: BaseBO[T]] (implicit man:Manifest[T]) {
 
@@ -10,12 +10,13 @@ abstract class BaseDAO[T <: BaseBO[T]] (implicit man:Manifest[T]) {
 
   def MatchAll = {
     var query = "MATCH (x:" + label + ") RETURN "
-
     properties.foreach(p => query = query.concat("x." + p.toLowerCase + ", "))
-
     query = query.substring(0, query.length - 2) + ";"
+    ExecuteQueryMapped(query)
+  }
 
-    Cypher(query)().map {
+  def MapRows(rows: List[CypherResultRow]): List[T] = {
+    rows.map {
       row =>
         man
           .runtimeClass
@@ -23,5 +24,13 @@ abstract class BaseDAO[T <: BaseBO[T]] (implicit man:Manifest[T]) {
           .asInstanceOf[BaseBO[T]]
           .complete(row)
     }.toList
+  }
+
+  def ExecuteQuery(query: String) = {
+    Cypher(query)().toList
+  }
+
+  def ExecuteQueryMapped(query: String) = {
+    MapRows(Cypher(query)().toList)
   }
 }
